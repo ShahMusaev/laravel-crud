@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  nginx:
+    container_name: nginx-laravel
+    image: nginx:stable-alpine
+    ports:
+      - '8080:80'
+    volumes:
+      - ../../../:/var/www/laravel_crud
+      - ../../conf/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - php
+      - mysql
+
+  php:
+    container_name: php-fpm
+    build:
+      context: ../
+    ports:
+      - '9000:9000'
+    volumes:
+      - ../../../:/var/www/laravel_crud
+    depends_on:
+      - mysql
+
+  mysql:
+    container_name: mysql
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: 123654
+      MYSQL_DATABASE: laravel_crud
+    ports:
+      - '3306:3306'
+    volumes:
+      - ../../../mysql:/var/lib/mysql
