@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
+use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\View\View;
 
 class UserController extends Controller
 {
@@ -25,11 +25,11 @@ class UserController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return Application|Factory|Response|View
+     * @return Application|Factory|View
      */
     public function create()
     {
-        return view('form');
+        return \view('form');
     }
 
     /**
@@ -46,30 +46,30 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\User  $user
+     * @param User $user
      * @return Application|Factory|View
      */
     public function show(User $user)
     {
-        return \view('show');
+        return \view('show', compact($user));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\User  $user
+     * @param User $user
      * @return Application|Factory|View
      */
     public function edit(User $user)
     {
-        return view('form', compact('user'));
+        return \view('form', compact('user'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\User  $user
+     * @param User $user
      * @return Response
      */
     public function update(Request $request, User $user)
@@ -80,7 +80,7 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\User  $user
+     * @param User $user
      * @return Response
      */
     public function destroy(User $user)
