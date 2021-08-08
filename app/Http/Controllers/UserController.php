@@ -53,7 +53,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return \view('show', compact($user));
+        return \view('show', compact('user'));
     }
 
     /**
@@ -84,10 +84,11 @@ class UserController extends Controller
      * Remove the specified resource from storage.
      *
      * @param User $user
-     * @return Response
+     * @return RedirectResponse
      */
     public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return redirect()->route('user.index');
     }
 }
